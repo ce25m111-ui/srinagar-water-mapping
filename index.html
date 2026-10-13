@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///C:/Users/shara/Downloads/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Srinagar surface water, 1990–2021</title>
+<meta name="description" content="Google Earth Engine analysis of permanent and seasonal surface-water area in Srinagar from 1990 to 2021 using JRC Global Surface Water.">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./index_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f6f9fb; --ink:#14202b; --muted:#566878; --line:#d5dfe7; --accent:#0b4f94; --accent-2:#2f9fdc;
+    --panel:#ffffff; --fill:#fff0a6; --fill-ink:#4a3b00;
+    --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0d151c; --ink:#e6edf3; --muted:#9db0c0; --line:#243442; --accent:#6db5ff; --accent-2:#4fb3e8;
+            --panel:#131d26; --fill:#5a4a00; --fill-ink:#fff3c4; }
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; scroll-padding-top:4.5rem; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:1.0625rem/1.65 var(--sans); }
+  a { color:var(--accent); }
+  :focus-visible { outline:3px solid var(--accent-2); outline-offset:2px; }
+
+  header.top { position:sticky; top:0; z-index:10; background:color-mix(in srgb, var(--bg) 88%, transparent);
+               backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  .bar { max-width:1040px; margin:0 auto; padding:.7rem 1.25rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+  .brand { font:700 1.05rem var(--serif); color:var(--ink); text-decoration:none; }
+  nav a { margin-left:1.2rem; color:var(--muted); text-decoration:none; font-weight:600; font-size:.95rem; }
+  nav a:hover { color:var(--accent); }
+
+  main { max-width:1040px; margin:0 auto; padding:0 1.25rem 4rem; }
+  .hero { padding:3.5rem 0 2rem; }
+  .eyebrow { color:var(--muted); font-size:.95rem; margin:0 0 .8rem; }
+  h1 { font:700 clamp(2rem,5vw,3.25rem)/1.12 var(--serif); letter-spacing:-.01em; margin:0 0 1rem; max-width:22ch; }
+  .lead { font-size:1.2rem; color:var(--muted); max-width:62ch; margin:0 0 2rem; }
+
+  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); border-top:4px solid var(--accent); }
+  .stat { padding:1rem 1.2rem 1rem 0; }
+  .stat + .stat { padding-left:1.2rem; border-left:1px solid var(--line); }
+  .stat b { display:block; font:700 clamp(1.7rem,3.4vw,2.4rem)/1.1 var(--serif); color:var(--accent); }
+  .stat span { display:block; color:var(--muted); font-size:.95rem; margin-top:.2rem; }
+  .stat em { display:block; font-style:normal; font-size:.9rem; font-weight:600; margin-top:.15rem; }
+
+  h2 { font:700 clamp(1.5rem,3vw,2rem)/1.2 var(--serif); margin:3.5rem 0 .8rem; }
+  p { max-width:72ch; }
+  figure { margin:1.5rem 0; }
+  figure img { display:block; width:100%; height:auto; background:#fff; border:1px solid var(--line); border-radius:6px; }
+  figcaption { color:var(--muted); font-size:.9rem; margin-top:.5rem; max-width:72ch; }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .pair figcaption { font-weight:600; color:var(--ink); }
+  @media (max-width:640px) { .pair { grid-template-columns:1fr; } nav a { margin-left:.8rem; } }
+
+  .legend { display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; margin:.8rem 0; font-size:.92rem; }
+  .legend i { display:inline-block; width:.9rem; height:.9rem; border:1px solid rgba(0,0,0,.35); margin-right:.4rem; vertical-align:-.1rem; }
+
+  .viewer { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:1rem; text-align:center; }
+  .viewer img { max-height:560px; width:auto; max-width:100%; border:0; background:#fff; }
+  .controls { display:flex; align-items:center; gap:.9rem; justify-content:center; margin-top:.7rem; }
+  .controls input { flex:1; max-width:520px; accent-color:var(--accent); }
+  .controls output { font:700 1.3rem var(--serif); min-width:3.2ch; }
+  button { font:600 .95rem var(--sans); padding:.4rem 1rem; border:1.5px solid var(--accent); background:transparent; color:var(--accent); border-radius:5px; cursor:pointer; }
+  button:hover { background:var(--accent); color:var(--bg); }
+  details { margin-top:1rem; text-align:left; } summary { cursor:pointer; color:var(--accent); font-weight:600; }
+
+  .tablewrap { overflow-x:auto; margin:1rem 0; }
+  table { border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums; }
+  th, td { padding:.5rem .8rem; text-align:right; border-bottom:1px solid var(--line); white-space:nowrap; }
+  th:first-child, td:first-child { text-align:left; }
+  thead th { border-bottom:2px solid var(--ink); font-weight:600; }
+
+  .results { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem 2.5rem; margin:1rem 0; }
+  .results p { margin:0; }
+  .limits { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.2rem 2.5rem; margin:1rem 0; }
+  .limits p { margin:0; } .limits b { display:block; }
+  .fill { background:var(--fill); color:var(--fill-ink); border-radius:3px; padding:0 .3em; }
+  .note { color:var(--muted); font-size:.95rem; }
+  #banner { position:fixed; right:1rem; bottom:1rem; z-index:20; background:var(--fill); color:var(--fill-ink); padding:.6rem .9rem; border-radius:6px; font-size:.9rem; max-width:22rem; box-shadow:0 2px 10px rgba(0,0,0,.25); }
+  #banner[hidden] { display:none; }
+  footer { border-top:1px solid var(--line); margin-top:4rem; padding-top:1.2rem; color:var(--muted); font-size:.92rem; }
+</style>
+<style id="__web-inspector-hide-shortcut-style__">
+.__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *
+{
+    visibility: hidden !important;
+}
+</style></head>
+<body>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="file:///C:/Users/shara/Downloads/index.html#top">Srinagar · JRC Surface Water</a>
+    <nav aria-label="Sections">
+      <a href="file:///C:/Users/shara/Downloads/index.html#change">Change</a><a href="file:///C:/Users/shara/Downloads/index.html#animation">Animation</a><a href="file:///C:/Users/shara/Downloads/index.html#discussion">Discussion</a><a href="file:///C:/Users/shara/Downloads/index.html#methods">Methods</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <p class="eyebrow">Urban water change · Google Earth Engine analysis · Srinagar, India</p>
+    <!-- The headline below is written automatically from your numbers. Replace it with your own sentence if you prefer. -->
+    <h1 id="headline">Srinagar’s surface water, 1990–2021</h1>
+    <p class="lead">A fixed-boundary analysis of permanent and seasonal surface water inside Srinagar Municipal Corporation (64.9&nbsp;km²), using 32 annual classifications from the JRC Global Surface Water dataset at 30&nbsp;m resolution.</p>
+    <div class="stats" id="stats" aria-live="polite"></div>
+  </section>
+
+  <section id="change">
+    <h2>Where the water classes changed</h2>
+    <p>The two panels use the same colours, so a colour always means the same class. The map below compares 1991 with 2021 and counts only pixels that were observed in both years. 1991 is the first well-observed year: 1990 is largely unobserved (see the notes on coverage).</p>
+    <div class="legend" aria-label="Water class legend">
+      <span><i style="background:#0b3c8c"></i>Permanent water</span>
+      <span><i style="background:#5bc0eb"></i>Seasonal water</span>
+      <span><i style="background:#f4f1ea"></i>Not water</span>
+      <span><i style="background:#b0b0b0"></i>No data</span>
+    </div>
+    <div class="pair">
+      <figure><img src="file:///C:/Users/shara/Downloads/assets/frames/1991.png" alt="Srinagar water classes in 1991"><figcaption>1991</figcaption></figure>
+      <figure><img src="file:///C:/Users/shara/Downloads/assets/frames/2021.png" alt="Srinagar water classes in 2021"><figcaption>2021</figcaption></figure>
+    </div>
+    <figure>
+      <img src="file:///C:/Users/shara/Downloads/assets/transition_map.png" alt="Map of water class transitions in Srinagar between 1991 and 2021">
+      <figcaption>Change in water class, 1991 to 2021. The black line is the Srinagar Municipal Corporation boundary.</figcaption>
+    </figure>
+    <div class="legend" aria-label="Transition legend">
+      <span><i style="background:#0b3c8c"></i>Not water → permanent</span>
+      <span><i style="background:#5bc0eb"></i>Not water → seasonal</span>
+      <span><i style="background:#1b9e77"></i>Seasonal → permanent</span>
+      <span><i style="background:#fdae61"></i>Permanent → seasonal</span>
+      <span><i style="background:#d7191c"></i>Permanent → not water</span>
+      <span><i style="background:#f4a6a6"></i>Seasonal → not water</span>
+    </div>
+    <h3>Area by transition, 1991 to 2021 (km²)</h3>
+    <div class="tablewrap"><table id="transition"><thead></thead><tbody></tbody></table></div>
+    <p class="note">Rows are the 1991 class and columns the 2021 class. Pixels without a valid observation in either year are excluded.</p>
+  </section>
+
+  <section id="animation">
+    <h2>Thirty-two years, one frame per year</h2>
+    <div class="viewer">
+      <img id="frame" src="file:///C:/Users/shara/Downloads/assets/frames/1990.png" alt="Srinagar water classes for the selected year">
+      <div class="controls">
+        <button id="play" type="button">Play</button>
+        <input id="year" type="range" min="1990" max="2021" value="1990" step="1" aria-label="Year">
+        <output id="yearlabel" for="year">1990</output>
+      </div>
+      <details>
+        <summary>Show the animated GIF instead</summary>
+        <img src="file:///C:/Users/shara/Downloads/assets/srinagar_water.gif" alt="Animated map of Srinagar water classes from 1990 to 2021" style="margin-top:.8rem">
+      </details>
+    </div>
+    <p class="note">Every frame uses the same extent and colours. Grey areas had no valid observation that year. 1990, 1995 and 1997 are mostly grey and should not be read as real changes in water.</p>
+  </section>
+
+  <section id="numbers">
+    <h2>Measured change in water area</h2>
+    <figure>
+      <img src="file:///C:/Users/shara/Downloads/assets/area_timeseries.png" alt="Line chart of permanent and seasonal water area in Srinagar, 1990 to 2021">
+      <figcaption>Annual area of each class inside the city boundary. Grey bars show the share of the mapped water area with no valid observation, and red bands mark poorly observed years that are excluded from the averages and trends.</figcaption>
+    </figure>
+    <div class="results">
+      <p id="auto-temporal"></p>
+      <p id="auto-quality"></p>
+    </div>
+    <div class="tablewrap"><table id="yearly"><thead>
+      <tr><th>Year</th><th>Permanent</th><th>Seasonal</th><th>All water</th><th>Share of city</th><th>No data*</th></tr>
+    </thead><tbody></tbody></table></div>
+    <p class="note">Areas in km². Every fifth year plus 2021; the full series is in the downloads below. *Share of the mapped water area with no valid observation. † Poorly observed year, excluded from averages and trends.</p>
+  </section>
+
+  <section id="discussion">
+    <h2>Spatial pattern and interpretation</h2>
+    <p><b>Spatial pattern.</b> <span class="fill">JRC classifies water only within a mapped area of about 11 km² of Srinagar’s 64.9 km², so surface water covers roughly 16% of the city (10.4 km² in 2021).</span></p>
+    <p><b>Temporal change.</b> <span class="fill">Permanent water fell from 5.37 km² (1991–93 average) to 3.83 km² (2019–21), a loss of 1.53 km² or 28.6%. The decline is steady rather than sudden: the linear trend is −0.061 km² per year (p &lt; 0.001), and period means fall from 5.18 km² in 1991–2000 to 4.83 km² in 2001–10 and 4.05 km² in 2011–21. Seasonal water moved the opposite way, rising from 4.56 to 6.58 km² (+44.3%, +0.076 km² per year, p &lt; 0.001). It peaked in 2016 at 7.04 km², the same year permanent water reached its minimum of 3.52 km². Total water changed little, from 9.92 to 10.41 km² (+4.9%), with a weak trend (+0.015 km² per year, p = 0.042, R² = 0.14). The main change is therefore in persistence rather than quantity: seasonal water grew from about 45% to about 63% of all water.</span></p>
+    <p><b>Transitions.</b> <span class="fill">Starting from 1991, the first well-observed year, 1.12 km² stayed permanent and 1.051 km² stayed seasonal. Permanent water that became seasonal was larger than seasonal water that became permanent, which agrees with the area trends above.</span></p>
+    <p><b>Reading the result carefully.</b> <span class="fill">The years 1990, 1995 and 1997 are poorly observed, with 80%, 28% and 95% of the mapped area unobserved, so their low values reflect missing data. They are excluded from all averages and trends, and the baseline starts in 1991. The shift from permanent to seasonal may reflect real hydrological change, but the classes also depend on how many valid observations fall within each year, so part of the shift could come from observation frequency or lake level rather than lasting loss of water. This dataset cannot separate these explanations, and causes such as land-use change or climate would need other evidence. The 30 m resolution also limits detail: a 0.49 km² change in total water is only about 540 pixels. The result applies to this boundary and ends in 2021. Overall, Srinagar’s surface water stayed near 10 km², but a growing share of it is seasonal.</span></p>
+  </section>
+
+  <section id="methods">
+    <h2>Method, sources and limitations</h2>
+    <p>The analysis selects the <code>waterClass</code> band from <code>JRC/GSW1_4/YearlyHistory</code> for 1990–2021, clips each year to one Srinagar boundary, and sums pixel area (30&nbsp;m) for each class before converting to km². Every year uses the same colours. The share of the mapped water area with no valid observation is tracked for every year, and years in which it exceeds 20% are excluded from all averages and trends so that missing observations are not mistaken for change. The baseline is the average of the first three well-observed years, and it is compared with the last three (2019–21). The transition map starts from 1991 for the same reason.</p>
+    <div class="limits">
+      <p><b>Spatial resolution</b>30 m pixels miss narrow channels and small ponds, and blur lake edges and floating vegetation.</p>
+      <p><b>Annual classes</b>Short floods or dry spells are folded into one yearly label, so seasonal water mixes several processes.</p>
+      <p><b>No-data pixels</b>Snow, cloud and sparse early Landsat coverage leave pixels unobserved. Three years (1990, 1995 and 1997) fall above the 20% limit and are excluded.</p>
+      <p><b>Mapped extent</b>JRC gives a class only inside the area where water has been detected, about 11&nbsp;km² of the city’s 64.9&nbsp;km². “Not water” therefore covers only a small part of the city.</p>
+      <p><b>Class definitions</b>“Permanent” and “seasonal” follow JRC’s rules and may differ from local hydrological definitions. The dataset ends in 2021.</p>
+      <p><b>Fixed boundary</b>Results describe change inside one boundary and may not match the present legal city limit.</p>
+    </div>
+    <p><b>Boundary:</b> Srinagar Municipal Corporation (ULB code 800013), from the Indian Urban Local Body boundaries <span class="fill"></span>. <b>Water data:</b> Pekel, J.-F., Cottam, A., Gorelick, N. and Belward, A.S. (2016), <i>Nature</i> 540, 418–422, via the <a href="https://developers.google.com/earth-engine/datasets/catalog/JRC_GSW1_4_YearlyHistory">Earth Engine catalogue</a>. <b>Platform:</b> Gorelick et al. (2017), Google Earth Engine, <i>Remote Sensing of Environment</i> 202, 18–27.</p>
+    <p class="__web-inspector-hide-shortcut__">
+      <a href="file:///C:/Users/shara/Downloads/srinagar_gsw.ipynb">Notebook with the full code</a> ·
+      <a href="file:///C:/Users/shara/Downloads/assets/area_by_year.csv">Annual areas (CSV)</a> ·
+      <a href="file:///C:/Users/shara/Downloads/assets/summary_stats.csv">Summary statistics (CSV)</a> ·
+      <a href="file:///C:/Users/shara/Downloads/assets/transition_matrix.csv">Transition matrix (CSV)</a>
+    </p>
+  </section>
+
+  <footer>Individual Google Earth Engine urban analysis · Srinagar, India<br>Sharayu Dahibhate · HS524M Urban Informatics and Spatial Analytics, IIT Tirupati</footer>
+</main>
+
+<div id="banner" role="status">Could not load the CSV files in assets/. If you opened this file directly from your computer, view it through GitHub Pages or a local web server (python -m http.server).</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const num = x => { const v = parseFloat(x); return Number.isFinite(v) ? v : NaN; };
+const f2 = x => Number.isFinite(x) ? x.toFixed(2) : '–';
+const f1 = x => Number.isFinite(x) ? x.toFixed(1) : '–';
+const fp = p => p < 0.001 ? 'p < 0.001' : 'p = ' + p.toFixed(3);
+const sign = x => (x > 0 ? '+' : x < 0 ? '−' : '') ;
+const fmtChange = (km, pct) => `${sign(km)}${f2(Math.abs(km))} km² (${sign(pct)}${f1(Math.abs(pct))}%)`;
+
+function parseCSV(text) {
+  const rows = []; let row = [], cur = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) { if (ch === '"') { if (text[i+1] === '"') { cur += '"'; i++; } else q = false; } else cur += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ',') { row.push(cur); cur = ''; }
+    else if (ch === '\n' || ch === '\r') {
+      if (ch === '\r' && text[i+1] === '\n') i++;
+      row.push(cur); cur = ''; if (row.length > 1 || row[0] !== '') rows.push(row); row = [];
+    } else cur += ch;
+  }
+  if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
+  const head = rows.shift();
+  return rows.map(r => Object.fromEntries(head.map((h, i) => [h.trim(), r[i] === undefined ? '' : r[i]])));
+}
+const loadCSV = async url => { const r = await fetch(url); if (!r.ok) throw new Error(url); return parseCSV(await r.text()); };
+
+// ---------- year slider ----------
+(function () {
+  const img = $('#frame'), range = $('#year'), label = $('#yearlabel'), btn = $('#play'); let timer = null;
+  const show = y => { img.src = `assets/frames/${y}.png`; label.textContent = y; range.value = y; };
+  range.addEventListener('input', e => show(e.target.value));
+  for (let y = 1990; y <= 2021; y++) new Image().src = `assets/frames/${y}.png`;
+  btn.addEventListener('click', () => {
+    if (timer) { clearInterval(timer); timer = null; btn.textContent = 'Play'; return; }
+    btn.textContent = 'Pause';
+    timer = setInterval(() => { let y = +range.value + 1; if (y > 2021) y = 1990; show(y); }, 500);
+  });
+})();
+
+// ---------- numbers from the CSV files written by the notebook ----------
+(async function () {
+  try {
+    const [years, summ, trans] = await Promise.all([
+      loadCSV('assets/area_by_year.csv'),
+      loadCSV('assets/summary_stats.csv'),
+      loadCSV('assets/transition_matrix.csv'),
+    ]);
+    const S = Object.fromEntries(summ.map(r => [r['class'], r]));
+    const P = S.permanent, W = S.seasonal;
+    const p0 = num(P.baseline_mean_km2), p1 = num(P.latest_mean_km2), s0 = num(W.baseline_mean_km2), s1 = num(W.latest_mean_km2);
+    const B = P.baseline_label, L = P.latest_label;
+
+    // headline
+    const verb = pct => !Number.isFinite(pct) ? 'changed' : Math.abs(pct) < 1 ? 'hardly changed' : pct > 0 ? 'grew' : 'shrank';
+    const how = pct => Math.abs(pct) < 1 ? `(${sign(pct)}${f1(Math.abs(pct))}%)` : `by ${f1(Math.abs(pct))}%`;
+    $('#headline').textContent = `Srinagar’s permanent water ${verb(num(P.change_pct))} ${how(num(P.change_pct))} and seasonal water ${verb(num(W.change_pct))} ${how(num(W.change_pct))} between ${B} and ${L}.`;
+
+    // stat strip
+    $('#stats').innerHTML = [
+      [f2(p0) + ' km²', `permanent water, ${B} average`, ''],
+      [f2(p1) + ' km²', `permanent water, ${L} average`, fmtChange(num(P.change_km2), num(P.change_pct))],
+      [f2(s0) + ' km²', `seasonal water, ${B} average`, ''],
+      [f2(s1) + ' km²', `seasonal water, ${L} average`, fmtChange(num(W.change_km2), num(W.change_pct))],
+    ].map(([v, l, c]) => `<div class="stat"><b>${v}</b><span>${l}</span>${c ? `<em>${c}</em>` : ''}</div>`).join('');
+
+    // automatic summary sentences (edit or extend them in your discussion)
+    $('#auto-temporal').innerHTML =
+      `<b>Temporal result.</b> Permanent water averaged ${f2(p0)} km² in ${B} and ${f2(p1)} km² in ${L}. ` +
+      `Seasonal water averaged ${f2(s0)} km² and ${f2(s1)} km². Across the well-observed years the linear trend is ` +
+      `${sign(num(P.trend_km2_per_year))}${Math.abs(num(P.trend_km2_per_year)).toFixed(3)} km² per year for permanent water (${fp(num(P.p_value))}) and ` +
+      `${sign(num(W.trend_km2_per_year))}${Math.abs(num(W.trend_km2_per_year)).toFixed(3)} km² per year for seasonal water (${fp(num(W.p_value))}). ` +
+      `Seasonal water was largest in ${W.max_year} (${f2(num(W.max_km2))} km²) and smallest in ${W.min_year} (${f2(num(W.min_km2))} km²).`;
+
+    const gaps = years.filter(r => num(r.nodata_pct) > 20).map(r => r.year);
+    $('#auto-quality').innerHTML = `<b>Data coverage.</b> ` + (gaps.length
+      ? `More than 20% of the mapped water area had no valid observation in ${gaps.length} year${gaps.length > 1 ? 's' : ''} (${gaps.join(', ')}). These years are excluded from the averages and trends, and their low values reflect missing data, not less water.`
+      : `No year had more than 20% of the mapped water area unobserved, so gaps in observation are unlikely to drive the main result.`);
+
+    // yearly table
+    $('#yearly tbody').innerHTML = years.filter(r => num(r.year) % 5 === 0 || num(r.year) === 2021).map(r =>
+      `<tr><td>${r.year}${num(r.nodata_pct) > 20 ? ' †' : ''}</td><td>${f2(num(r.permanent_km2))}</td><td>${f2(num(r.seasonal_km2))}</td>` +
+      `<td>${f2(num(r.water_km2))}</td><td>${f1(100 * num(r.water_km2) / num(r.total_km2))}%</td><td>${f1(num(r.nodata_pct))}%</td></tr>`).join('');
+
+    // transition table
+    const order = ['Not water', 'Seasonal', 'Permanent'];
+    const cols = order.filter(c => c in trans[0]);
+    $('#transition thead').innerHTML = `<tr><th>1991 class \\ 2021 class</th>${cols.map(c => `<th>${c}</th>`).join('')}</tr>`;
+    $('#transition tbody').innerHTML = order.map(o => trans.find(r => r.from_class === o)).filter(Boolean).map(r =>
+      `<tr><td>${r.from_class}</td>${cols.map(c => `<td>${f2(num(r[c]))}</td>`).join('')}</tr>`).join('');
+  } catch (err) {
+    const b = $('#banner'); b.hidden = false;
+    b.textContent = 'Could not load the CSV files in assets/. If you opened this file directly from your computer, view it through GitHub Pages or a local web server (python -m http.server).';
+    console.error(err);
+  }
+  // reminder while placeholders remain
+  const left = document.querySelectorAll('.fill').length;
+  if (left && $('#banner').hidden) { const b = $('#banner'); b.hidden = false; b.textContent = `Draft: ${left} highlighted placeholder${left > 1 ? 's' : ''} still to fill.`; }
+})();
+</script>
+
+
+</body></html>
